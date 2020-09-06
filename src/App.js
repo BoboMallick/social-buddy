@@ -1,14 +1,37 @@
 import React from 'react';
 import './App.css';
-import { Button } from '@material-ui/core';
+import Header from './component/AppBar/Header';
+import Home from './component/Home/Home';
+import NotFound from './NotFound/NotFound.js'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import PostDetails from './component/PostDetails/PostDetails';
+
+
 
 function App() {
   return (
-    <div>
-      <h1>Social Buddy</h1>
-      <Button color="primary">Hello World</Button>;
+    <Router>
+      <Header></Header>
+     <Switch>
+       <Route path="/home">
+      <Home></Home>
+       </Route>
+       <Route path="/post/:postId">
+         <PostDetails></PostDetails>
+       </Route>
+       <Route exact path="/">
+         <Home/>
+       </Route>
+       <Route path="*">
+         <NotFound/>
+       </Route>
+     </Switch>
+    </Router>
     
-    </div>
   );
 }
 
