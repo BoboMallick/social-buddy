@@ -1,42 +1,14 @@
-// import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-// const Comments = () => {
-//     const [comments, setComments] = useState([]);
-
-//     useEffect(() => {
-//         fetch(`https://jsonplaceholder.typicode.com/comments`)
-//         .then(res => res.json())
-//         .then(data => setComments(data))
-//     }, [])
-//     return (
-//         <div>
-//             <h3>Comments: {comments.length}</h3>
-//         </div>
-//     );
-// };
-
-// export default Comments;
-
-
-
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-
-const Comments = () => {
-    const {postId} = useParams();
-    const [comments, setComments] = useState({});
-    useEffect(() => {
-    const url = `https://jsonplaceholder.typicode.com/comments/${postId}`;
-    fetch(url)
-    .then(res => res.json())
-    .then(data => setComments(data));
-    }, [])                 
+const Comments = (props) => {
+    const {name, body, email} = props.comment;
+    
+                     
     return (
         <div>
-            <h4>{postId}</h4>
-            <h3>{comments.name}</h3>
-            <p>{comments.email}</p>
-            <p>{comments.body}</p>
+            <h3>Name: {name}</h3>
+            <h5>Email: {email}</h5>
+            <p>{body}</p>
         </div>
     );
 };

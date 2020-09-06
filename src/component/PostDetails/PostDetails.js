@@ -6,12 +6,22 @@ import Comments from '../Comments/Comments';
 const PostDetails = () => {
     const {postId} = useParams();
     const [post, setPost] = useState({});
+    const [comments, setComments] = useState([]);
     useEffect(() => {
         const url = `https://jsonplaceholder.typicode.com/posts/${postId}`
         fetch(url)
         .then(res => res.json())
         .then(data => setPost(data));
     }, [])
+
+   
+    useEffect(() => {
+    const url = `https://jsonplaceholder.typicode.com/comments?postId=${postId}`;
+    fetch(url)
+    .then(res => res.json())
+    .then(data => setComments(data));
+    }, [])
+    console.log(comments)
     const buddyStyles = {
         border: '1px solid black',
         marginTop: '40px',
@@ -23,15 +33,10 @@ const PostDetails = () => {
         backgroundColor: 'lightblue'
         }
         const commentStyle = {
-            border: '1px solid black',
-            marginTop: '40px',
+            backgroundColor: 'lightgray',
             marginLeft: '200px',
             marginRight: '200px',
-            marginBottom: '20px',
-            padding: '20px',
-            borderRadius: '10px',
-            textAlign: 'center',
-            backgroundColor: 'lightgray'
+            padding: '40px'
         }
     return (
         <div>
@@ -46,7 +51,9 @@ const PostDetails = () => {
                 </Link>
         </div>
         <div style={commentStyle}>
-            <Comments></Comments>
+            {
+                comments.map(comment => <Comments comment={comment}></Comments>)
+            }
         </div>
         </div>
     );
